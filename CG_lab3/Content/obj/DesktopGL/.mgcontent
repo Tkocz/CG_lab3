@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/US_Canyon.png</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/skybox_texture.jpg</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/skybox.x</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/mudcrack.jpg</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/Chopper.fbx</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/FireRock.fbx</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/TreeDesertSmoothbb.fbx</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/BigBoySmooth.fbx</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/House1Smooth.fbx</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/SmallBoy.fbx</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab3/CG_lab3/Content/das_robot.jpg</File>
+  </SourceFiles>
+</SourceFileCollection>

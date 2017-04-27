@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>iOS</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab2/CG_lab2/Content/Chopper.fbx</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab2/CG_lab2/Content/skybox.x</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab2/CG_lab2/Content/skybox_texture.jpg</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab2/CG_lab2/Content/US_Canyon.png</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab2/CG_lab2/Content/mudcrack.JPG</File>
+    <File>C:/Users/Martin/Documents/Visual Studio 2017/Projects/CG_lab2/CG_lab2/Content/bonzai.fbx</File>
+  </SourceFiles>
+</SourceFileCollection>
