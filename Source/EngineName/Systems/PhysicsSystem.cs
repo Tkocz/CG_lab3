@@ -93,12 +93,7 @@ public class PhysicsSystem: EcsSystem {
     ///                  method.</param>
     public override void Update(float t, float dt) {
         // TODO: Why is this here? It has nothing to do with physics??
-        foreach (CTransform transformComponent in Game1.Inst.Scene.GetComponents<CTransform>().Values)
-        {
-            transformComponent.Frame = Matrix.CreateScale(transformComponent.Scale) *
-                transformComponent.Rotation *
-                Matrix.CreateTranslation(transformComponent.Position);
-        }
+
 
         // Basically, use semi-implicit Euler to integrate all positions and then sweep coarsely
         // for AABB collisions. All potential collisions are passed on to the fine-phase solver.

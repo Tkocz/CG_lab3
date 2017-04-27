@@ -66,6 +66,50 @@
       <Link>Content.mgcb</Link>
     </MonoGameContentReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Assignment3.pdf" />
+    <None Include="Resources\Models-VS2015+MG\Models\COPYING" />
+    <None Include="Resources\Models-VS2015+MG\Models\fbx\Thumbs.db" />
+    <None Include="Resources\Models-VS2015+MG\Models\jeep.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\moffett-hangar2.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\moffett-old-building-a.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\moffett-old-building-b.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\Nordstern.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\plane.x" />
+    <None Include="Resources\Models-VS2015+MG\Models\README" />
+    <None Include="Resources\Models-VS2015+MG\Models\snowplow.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\sphere.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\sphere_mapped.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\Thumbs.db" />
+    <None Include="Resources\Models-VS2015+MG\Models\Zeppelin_NT.fbx" />
+    <None Include="Resources\Models-VS2015+MG\Models\ZF_balloon.x" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Models-VS2015+MG\Models\c172p-01.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\c172p-02.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\envelope.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\fbx\jeep-1.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\fbx\moffett-n-211-vindows.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\fbx\textures-obs-tower-knuq.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\flat-normal-map.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\FlightGear-envelope.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\girder.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\instrument_panel.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\leather.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\moffett-hangar2-concrete-b.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\moffett-hangar2-concrete.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\moffett-hangar2-numbers.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\moffett-hangar2-red-light.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\moffett-hangar2-roof.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\moffett-hangar2-windows.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\prop.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\setts-height.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\setts-normalmap.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\setts.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\Untitled.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\water-normal-map.png" />
+    <Content Include="Resources\Models-VS2015+MG\Models\wicker-small.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

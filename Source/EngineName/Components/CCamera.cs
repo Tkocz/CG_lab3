@@ -12,17 +12,17 @@ namespace EngineName.Components
     {
         public Matrix View;
         public Matrix Projection;
-        // Altered projection for culling a bit outside of normal projection
-        public Matrix ClipProjection;
-        public BoundingFrustum Frustum => new BoundingFrustum(View * ClipProjection);
-        public Vector3 Target = Vector3.Zero;
-        public float Heading  = 0f;
-        public int Height     = -50;
-        public int Distance   = 50;
-        public CCamera(){}
-        public CCamera(int height, int distance){
-            Height = height;
-            Distance = distance;
+        public Vector3 Up;
+        public Vector3 CameraPosition;
+        public Vector3 Offset;
+        public Quaternion CameraRotation;
+        public CCamera()
+        {
+            Up = Vector3.Up;
+            CameraRotation = Quaternion.Identity;
+            Offset = new Vector3(0, 50, 50);
+            View = Matrix.CreateLookAt(new Vector3(0, 0, 0), new Vector3(0, 0, 0), Up);
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Game1.Inst.GraphicsDevice.Viewport.AspectRatio, 0.1f, 1000f);
         }
     }
 }

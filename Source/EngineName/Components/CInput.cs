@@ -22,7 +22,11 @@ namespace EngineName.Components
 		public Keys CameraMovementDown = Keys.LeftShift;
 		public Keys CameraTiltUp = Keys.W;
 		public Keys CameraTiltDown = Keys.S;
-		//public Keys ZRotationPlus = Keys.Z;
-		//
-	}
+        public Keys CameraTiltLeft = Keys.A;
+        public Keys CameraTiltRight = Keys.D;
+        public Keys CameraTiltRollLeft = Keys.Q;
+        public Keys CameraTiltRollRight = Keys.E;
+        //public Keys ZRotationPlus = Keys.Z;
+        //
+    }
 }

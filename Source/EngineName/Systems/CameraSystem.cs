@@ -19,15 +19,26 @@ namespace EngineName.Systems
         }
         public override void Update(float t, float dt)
         {
-            foreach(var camera in Game1.Inst.Scene.GetComponents<CCamera>()) {
-                CCamera cameraComponent = (CCamera)camera.Value;
-                CTransform transformComponent = (CTransform) Game1.Inst.Scene.GetComponentFromEntity<CTransform>(camera.Key);
-
-                Vector3 cameraPosition = transformComponent.Position;
-                
-                cameraComponent.View = Matrix.CreateLookAt(cameraPosition, cameraComponent.Target, Vector3.Up);
-            }
             base.Update(t, dt);
+
+            foreach (var CComponent in Game1.Inst.Scene.GetComponents<CCamera>())
+            {
+                int id = CComponent.Key;
+                CCamera camera = (CCamera)CComponent.Value;
+                var transform = (CTransform)Game1.Inst.Scene.GetComponentFromEntity<CTransform>(id);
+                var cameraRotation = Quaternion.Lerp(camera.CameraRotation, transform.Orientation, 0.1f);
+
+                Vector3 cameraPosition = Vector3.Transform(camera.Offset, transform.Orientation);
+                cameraPosition += transform.Position;
+
+                Vector3 cameraUp = new Vector3(0, 1, 0);
+                cameraUp = Vector3.Transform(cameraUp, transform.Orientation);
+
+                camera.View = Matrix.CreateLookAt(cameraPosition, transform.Position, cameraUp);
+
+                camera.CameraRotation = cameraRotation;
+                camera.Up = cameraUp;
+            }
         }
     }
 }

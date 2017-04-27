@@ -29,11 +29,22 @@ namespace EngineName.Systems
         }
         public override void Update(float t, float dt)
         {
-            foreach (CCamera camera in Game1.Inst.Scene.GetComponents<CCamera>().Values)
+            foreach (var CComponent in Game1.Inst.Scene.GetComponents<CCamera>())
             {
+                int id = CComponent.Key;
+                CCamera camera = (CCamera)CComponent.Value;
+                var transform = (CTransform)Game1.Inst.Scene.GetComponentFromEntity<CTransform>(id);
 
-                skyworldM = Matrix.CreateScale(skyscale, skyscale, skyscale) * Matrix.CreateTranslation(1081f / 2, 0, -1081f / 2);// * Matrix.Identity;
-                projM = Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 3, 1f, 1f, 5f * skyscale);
+                var position = transform.Position;
+                var view = transform.Scale;
+
+                var scale = transform.Scale;
+                var orientation = transform.Orientation;
+                var objectWorld = transform.ObjectWorld;
+                var elapsedGameTime = t;
+
+                skyworldM = Matrix.CreateScale(skyscale, skyscale, skyscale);
+                projM = Matrix.CreatePerspectiveFieldOfView(MathHelper.Pi / 3, 1f, 1f, 10f * skyscale);
                 viewM = camera.View;
 
             }

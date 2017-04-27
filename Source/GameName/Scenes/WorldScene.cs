@@ -21,7 +21,8 @@ namespace GameName.Scenes
             var mapSystem = new MapSystem();
             AddSystems(
                 new SkyBoxSystem(),
-                new RenderingSystem(),
+                new RenderingSystem(Matrix.Identity),
+                new TransformSystem(),
                 new CameraSystem(),
                 new PhysicsSystem(),
                 new InputSystem(),
@@ -37,21 +38,15 @@ namespace GameName.Scenes
             base.Init();
             // Camera entity
             int camera = AddEntity();
-            float fieldofview = MathHelper.PiOver2;
-            float nearplane = 0.1f;
-            float farplane = 1000f;
 
-            AddComponent(camera, new CCamera(-5, 5){
-                Projection = Matrix.CreatePerspectiveFieldOfView(fieldofview, Game1.Inst.GraphicsDevice.Viewport.AspectRatio,nearplane,farplane)
-                ,ClipProjection = Matrix.CreatePerspectiveFieldOfView(fieldofview*1.2f, Game1.Inst.GraphicsDevice.Viewport.AspectRatio, nearplane*0.5f, farplane*1.2f)
-            });
+            AddComponent(camera, new CCamera());
             AddComponent(camera, new CInput());
-            AddComponent(camera, new CTransform() { Position = new Vector3(-5, 5, 0), Rotation = Matrix.Identity, Scale = Vector3.One });
+            AddComponent(camera, new CTransform() { Position = new Vector3(-5, 5, 0), Orientation = Quaternion.Identity, Scale = Vector3.One });
 
             // Heightmap entity
             int id = AddEntity();
             AddComponent<C3DRenderable>(id, new CHeightmap() { Image = Game1.Inst.Content.Load<Texture2D>("Textures/HeightMap") });
-            AddComponent(id, new CTransform() { Position = new Vector3(-590, -900, -590) *0.01f, Rotation = Matrix.Identity, Scale = new Vector3(0.01f) });
+            AddComponent(id, new CTransform() { Position = new Vector3(-590, -100, -590) *0.01f, Orientation = Quaternion.Identity, Scale = new Vector3(1f) });
             // manually start loading all heightmap components, should be moved/automated
             mapSystem.Load();
 

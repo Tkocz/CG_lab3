@@ -137,7 +137,7 @@ namespace EngineName.Systems
             }
             int id = Game1.Inst.Scene.AddEntity();
            
-            Game1.Inst.Scene.AddComponent(id, new CTransform() { Position = new Vector3(-590, -900, -590) * 0.01f, Rotation = Matrix.Identity, Scale = new Vector3(0.01f) });
+            Game1.Inst.Scene.AddComponent(id, new CTransform() { Position = new Vector3(-590, -900, -590) * 0.01f, Orientation = Quaternion.CreateFromRotationMatrix(Matrix.Identity), Scale = new Vector3(0.01f) });
             CModel = new CImportedModel() { model = model };
             Game1.Inst.Scene.AddComponent<C3DRenderable>(id, CModel);
         }
