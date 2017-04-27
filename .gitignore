@@ -1,3 +1,8 @@
-
-CG_lab3/bin/DesktopGL/AnyCPU/Debug/
-Engine/bin/DesktopGL/AnyCPU/Debug/
+*.csproj.user
+*.userprefs
+.DS_Store
+.vs
+bin
+doc
+obj
+tmp
