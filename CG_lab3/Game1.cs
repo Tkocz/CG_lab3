@@ -36,8 +36,8 @@ namespace CG_lab3
             Engine.GetInst().Subsystems.Add(new TransformSystem());
             Engine.GetInst().Subsystems.Add(new InputSystem());
 
-           Engine.GetInst().addEntity(Robot.createComponents(
-                "robot",
+           Engine.GetInst().addEntity(Chopper.createComponents(
+                "chopper",
                 true,
                 new Vector3(2f, 2f, 2f), 
                 new Vector3(540f, 300f, -540f),

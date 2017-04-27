@@ -75,11 +75,11 @@ namespace Manager.Subsystems
                 {
                     if (modelRotation < MathHelper.PiOver4)
                     {
-                        modelRotation = tC.speed * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                        modelRotation = tC.speed.X * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                     }
                     else
                     {
-                        modelRotation = -tC.speed * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                        modelRotation = -tC.speed.X * 0.1f * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                     }
 
                     if (modelBone.Name == "LeftLeg")

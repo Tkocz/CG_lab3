@@ -12,26 +12,18 @@ namespace Manager.Components
     public class TransformComponent : Component
     {
         //Holds data such as position, rotation and scaling
-        public float speed = 0f;
+        public Vector3 speed = new Vector3(0.1f, 0.01f, 0.01f);
         public Vector3 scale;
-        public Matrix Scale;
         public Vector3 position;
         public Quaternion orientation;
         public Matrix objectWorld;
-        public float MAXROTATION = MathHelper.PiOver4;
-        public float rotationSpeed = 0.003f, modelRotation = 0;
-        public Quaternion Rotation;
-        public bool direction = true;
-        public Keys currentKey;
 
         public TransformComponent(Vector3 scale, Vector3 position, Quaternion orientation, Matrix objectWorld)
         {
             this.scale = scale;
-            Scale = Matrix.CreateScale(scale);
             this.position = position;
             this.orientation = orientation;
             this.objectWorld = objectWorld;
-            Rotation = Quaternion.CreateFromAxisAngle(Vector3.Right, MathHelper.PiOver2) * Quaternion.CreateFromAxisAngle(Vector3.Up, MathHelper.Pi);
         }
     }
 }
