@@ -43,7 +43,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
-    <Compile Include="Scenes\MainMenu.cs" />
     <Compile Include="Scenes\WorldScene.cs" />
   </ItemGroup>
   <ItemGroup>
