@@ -60,6 +60,7 @@
     <Compile Include="Subsystems\InputSystem.cs" />
     <Compile Include="Subsystems\MeshModelSystem.cs" />
     <Compile Include="Subsystems\ModelSystem.cs" />
+    <Compile Include="Subsystems\RenderSystem.cs" />
     <Compile Include="Subsystems\SkyboxSystem.cs" />
     <Compile Include="Subsystems\TransformSystem.cs" />
     <Compile Include="Subsystems\HeightmapChunkSystem.cs" />

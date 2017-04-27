@@ -10,6 +10,7 @@ using CG_lab3.Entities;
 using CG_lab3.Helpers;
 using Manager.Components;
 using System.Collections.Generic;
+using Manager.Helpers;
 
 namespace CG_lab3
 {
@@ -21,7 +22,8 @@ namespace CG_lab3
         static Matrix world = Matrix.Identity;
         public override void init()
         {
-			Engine.GetInst().addEntity(HeightMap.createComponents(
+            var hMHelper = new HeightMapHelper();
+            Engine.GetInst().addEntity(HeightMap.createComponents(
 					"US_Canyon",
 					"mudcrack",
 					3
@@ -33,6 +35,7 @@ namespace CG_lab3
             Engine.GetInst().Subsystems.Add(new CameraSystem());
             Engine.GetInst().Subsystems.Add(new MeshModelSystem(world));
             Engine.GetInst().Subsystems.Add(new ModelSystem(world));
+            Engine.GetInst().Subsystems.Add(new RenderSystem(world));
             Engine.GetInst().Subsystems.Add(new TransformSystem());
             Engine.GetInst().Subsystems.Add(new InputSystem());
 
@@ -40,7 +43,7 @@ namespace CG_lab3
                 "chopper",
                 true,
                 new Vector3(2f, 2f, 2f), 
-                new Vector3(540f, 300f, -540f),
+                new Vector3(540f, 100f, -540f),
                 Quaternion.Identity, 
                 world
                 ));
@@ -48,7 +51,7 @@ namespace CG_lab3
                 "TreeDesertSmoothbb",
                 true,
 				new Vector3(0.05f, 0.05f, 0.05f),
-                new Vector3(575f, 182f, -530f),
+                new Vector3(575f, hMHelper.getHeightMapY(new Vector3(575f, 182f, -530f)), -530f),
                 Quaternion.Identity, 
                 world,
                 new Vector3(0.0f, 0.0f, 0.0f)
@@ -57,7 +60,7 @@ namespace CG_lab3
                 "House1Smooth",
                 true,
 				new Vector3(0.1f, 0.1f, 0.1f), 
-                new Vector3(540f, 180f, -540f),
+                new Vector3(540f, hMHelper.getHeightMapY(new Vector3(540f, 180f, -540f)), -540f),
                 Quaternion.Identity, 
                 world,
                 new Vector3(0.0f, 0.0f, 0.0f)

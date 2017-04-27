@@ -166,9 +166,9 @@ namespace Manager.Subsystems
 			heightMap.GetData(heightMapColors);
 
 			component.heightMapData = new float[component.terrainWidth, component.terrainHeight];
-			for (int x = 0; x < component.terrainWidth; x++)
-				for (int y = 0; y < component.terrainHeight; y++)
-					component.heightMapData[x, y] = heightMapColors[x + y * component.terrainWidth].R; //5.0f
+            for (int x = 0; x < component.terrainWidth; x++)
+                for (int y = 0; y < component.terrainHeight; y++)
+                    component.heightMapData[x, y] = heightMapColors[x + y * component.terrainWidth].R * 0.2f; //5.0f
 		}
 
 		//Creates and renders all the HeightmapComponents.
