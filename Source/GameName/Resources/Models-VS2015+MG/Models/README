@@ -1,0 +1,42 @@
+The objects and textures in this archive are released under the GPL license
+version 2 or later.
+
+The respective authors are:
+
+Detlef Faber
+  jeep.fbx and associated textures
+  snowplow.fbx and associated textures
+
+Alexis Bory
+  moffett-old-building-a.fbx and associated textures
+  moffett-old-building-b.fbx and associated textures
+
+Anders Gidenstam
+  Nordstern.fbx and associated textures
+  Zeppelin_NT.fbx and associated textures
+  ZF_balloon.x
+  plane.x
+  setts-height.png
+  setts.png
+  setts-normalmap.png
+  sphere.fbx
+  sphere_mapped.fbx
+  flat-normalmap.png
+
+
+Lists of transparent parts for some of the models:
+
+  Nordstern.fbx
+    "car_girders", "car_hgirders", "ring_girders", "keel_walkway",
+    "longitudal_girder.0", "longitudal_girder.001", "ccar_windows.F",
+    "ccar_windows.L", "ccar_windows.R", "cabin_windows.L",
+    "cabin_windows.R", "cell.1", "cell.2", "cell.3", "cell.4",
+    "cell.5", "cell.6", "cell.7", "cell.8", "cell.9", "cell.10",
+    "cell.11", "cell.12", "cell.13"
+
+  Zeppelin_NT.fbx:
+    "window.1", "window.2", "window.3", "window.4", "window.5",
+    "window.7",
+
+  snowplow.fbx:
+    "Circle.003", "Circle.004"
