@@ -579,12 +579,33 @@
 /processorParam:TextureFormat=Color
 /build:Models/fbx/textures-obs-tower-knuq.png
 
-#begin Fx/BasicEffect.fx
+#begin Fx/template.fx
 /importer:EffectImporter
-/processor:RemoteEffectProcessor
-/processorParam:RemoteAddress=pipeline.infinitespace-studios.co.uk
-/processorParam:RemotePort=443
-/processorParam:Protocol=https
+/processor:EffectProcessor
 /processorParam:DebugMode=Auto
-/build:Fx/BasicEffect.fx
+/build:Fx/template.fx
+
+#begin Textures/mudcrack.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/mudcrack.jpg
+
+#begin Textures/rWorld.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Textures/rWorld.jpg
 

@@ -14,5 +14,10 @@ namespace EngineName.Components.Renderable
         internal Color[,] ColorMap;
         public float HeighestPoint;
         public float LowestPoint;
+
+        public CHeightmap()
+        {
+            texture = Game1.Inst.Content.Load<Texture2D>("Textures/mudcrack");
+        }
     }
 }

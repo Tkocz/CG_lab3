@@ -15,15 +15,15 @@ namespace EngineName.Systems
 	{
 		private GraphicsDevice mGraphicsDevice;
 		private int chunksplit = 20;
-		private BasicEffect basicEffect;
-		//private Effect effect;
+		//private BasicEffect basicEffect;
+		private Effect effect;
 
 		public override void Init()
 		{
 			mGraphicsDevice = Game1.Inst.GraphicsDevice;
-			basicEffect = new BasicEffect(mGraphicsDevice);
-			basicEffect.VertexColorEnabled = true;
-			//effect = Game1.Inst.Content.Load<Effect>("Fx/Shader");
+			//basicEffect = new BasicEffect(mGraphicsDevice);
+			//basicEffect.VertexColorEnabled = true;
+			effect = Game1.Inst.Content.Load<Effect>("Fx/Shader");
 			base.Init();
 		}
 
@@ -199,8 +199,7 @@ namespace EngineName.Systems
 				CreateIndicesChunk(heightmap, ref indices, 0);
 				CalculateHeightData(heightmap);
 				CreateVerticesChunks(heightmap, ref vertices, 0, 0);
-				basicEffect.Texture = heightmap.Image;
-				for (int j = 0; j < vertices.Values.Count; j++)
+                for (int j = 0; j < vertices.Values.Count; j++)
 				{
 					var vert = vertices[j];
 					var ind = indices[j];
@@ -222,7 +221,7 @@ namespace EngineName.Systems
 					bones.Add(modelBone);
 					meshes.Add(modelMesh);
 					modelMesh.BoundingSphere = BoundingSphere.CreateFromBoundingBox(GenericUtil.BuildBoundingBoxForVertex(vert, Matrix.Identity));
-					modelpart.Effect = basicEffect;
+					modelpart.Effect = effect;
 				}
 				ModelMeshPart ground = buildGround(heightmap, 20);
 				List<ModelMeshPart> groundMeshParts = new List<ModelMeshPart>();
@@ -236,7 +235,7 @@ namespace EngineName.Systems
 				groundMesh.Name = "FrontFace";
 				bones.Add(groundBone);
 				meshes.Add(groundMesh);
-				ground.Effect = basicEffect;
+				ground.Effect = effect;
 
 				heightmap.model = new Model(mGraphicsDevice, bones, meshes);
 				heightmap.model.Tag = "Map";
