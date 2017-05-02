@@ -83,6 +83,7 @@
     <None Include="Resources\Models-VS2015+MG\Models\Thumbs.db" />
     <None Include="Resources\Models-VS2015+MG\Models\Zeppelin_NT.fbx" />
     <None Include="Resources\Models-VS2015+MG\Models\ZF_balloon.x" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Models-VS2015+MG\Models\c172p-01.png" />

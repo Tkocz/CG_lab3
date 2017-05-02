@@ -13,6 +13,7 @@ namespace EngineName.Components
         public Vector3 Speed = new Vector3(0.1f, 0.01f, 0.01f);
         public Vector3 Scale;
         public Vector3 Position;
+		public Vector3 YPR;
         public Quaternion Orientation;
         public Matrix ObjectWorld;
         public CTransform() { }

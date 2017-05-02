@@ -20,7 +20,7 @@ namespace EngineName.Components
         {
             Up = Vector3.Up;
             CameraRotation = Quaternion.Identity;
-            Offset = new Vector3(0, 50, 50);
+            Offset = new Vector3(0, 0, 0.1F);
             View = Matrix.CreateLookAt(new Vector3(0, 0, 0), new Vector3(0, 0, 0), Up);
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, Game1.Inst.GraphicsDevice.Viewport.AspectRatio, 0.1f, 1000f);
         }

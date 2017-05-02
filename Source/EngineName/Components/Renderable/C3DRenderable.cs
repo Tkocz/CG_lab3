@@ -11,5 +11,6 @@ namespace EngineName.Components.Renderable
     public abstract class C3DRenderable:CRenderable
     {
         public Model model;
+		public Effect effect;
     }
 }

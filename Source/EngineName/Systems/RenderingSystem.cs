@@ -49,28 +49,29 @@ namespace EngineName.Systems
 
                     foreach (ModelMesh modelMesh in model.model.Meshes)
                     {
-                        foreach (BasicEffect effect in modelMesh.Effects)
-                        {
-                            effect.World = modelMesh.ParentBone.Transform * objectWorld * world;
-                            effect.View = camera.View;
-                            effect.Projection = camera.Projection;
+						foreach (BasicEffect effect in modelMesh.Effects)
+						{
+							effect.World = modelMesh.ParentBone.Transform * objectWorld * world;
+							effect.View = camera.View;
+							effect.Projection = camera.Projection;
 
-                            effect.EnableDefaultLighting();
-                            effect.LightingEnabled = true;
+							effect.EnableDefaultLighting();
+							effect.LightingEnabled = true;
 
-                            effect.DirectionalLight0.DiffuseColor = new Vector3(1f, 1f, 1f);
-                            effect.DirectionalLight0.Direction = new Vector3(-0.5f, 1f, -3.5f);
-                            effect.DirectionalLight0.SpecularColor = new Vector3(-0.1f, -0.1f, -0.1f);
+							effect.DirectionalLight0.DiffuseColor = new Vector3(1f, 1f, 1f);
+							effect.DirectionalLight0.Direction = new Vector3(-0.5f, 1f, -3.5f);
+							effect.DirectionalLight0.SpecularColor = new Vector3(-0.1f, -0.1f, -0.1f);
 
-                            foreach (EffectPass p in effect.CurrentTechnique.Passes)
-                            {
-                                p.Apply();
-                                modelMesh.Draw();
-                            }
-                        }
+							foreach (EffectPass p in effect.CurrentTechnique.Passes)
+							{
+								p.Apply();
+								modelMesh.Draw();
+							}
+						}
+						}
                     }
                 }
             }
         }
     }
-}
+

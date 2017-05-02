@@ -41,12 +41,15 @@ namespace GameName.Scenes
 
             AddComponent(camera, new CCamera());
             AddComponent(camera, new CInput());
-            AddComponent(camera, new CTransform() { Position = new Vector3(-5, 5, 0), Orientation = Quaternion.Identity, Scale = Vector3.One });
+			AddComponent(camera, new CTransform() { Position = new Vector3(0, -6, 1), Orientation = Quaternion.CreateFromRotationMatrix(Matrix.CreateLookAt(new Vector3(0,0,10), new Vector3(0,6,0), Vector3.Up)), Scale = Vector3.One });
 
             // Heightmap entity
             int id = AddEntity();
             AddComponent<C3DRenderable>(id, new CHeightmap() { Image = Game1.Inst.Content.Load<Texture2D>("Textures/HeightMap") });
-            AddComponent(id, new CTransform() { Position = new Vector3(-590, -100, -590) *0.01f, Orientation = Quaternion.Identity, Scale = new Vector3(1f) });
+            AddComponent(id, new CTransform() { Position = new Vector3(-590, -900, -590) *0.01f, Orientation = Quaternion.Identity, Scale = new Vector3(0.01f) });
+			int hangar = AddEntity();
+			AddComponent<C3DRenderable>(hangar, new CImportedModel() { model = Game1.Inst.Content.Load<Model>("Models/moffett-old-building-a"), effect = Game1.Inst.Content.Load<Effect>("Fx/Shader") });
+			AddComponent(hangar, new CTransform() { Position = new Vector3(0, -875, -235) * 0.01f, Orientation = Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY(MathHelper.PiOver4 * 2)), Scale = new Vector3(0.05f) });
             // manually start loading all heightmap components, should be moved/automated
             mapSystem.Load();
 

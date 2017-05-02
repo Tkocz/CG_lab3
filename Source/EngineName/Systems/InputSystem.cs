@@ -15,7 +15,7 @@ using EngineName.Components;
 namespace EngineName.Systems {
     public class InputSystem : EcsSystem {
         private CInput inputValue = null;
-        private const float CAMERASPEED = 0.1f;
+        private const float CAMERASPEED = 0.001f;
 
         public override void Update(float t, float dt){
             KeyboardState currentState = Keyboard.GetState();
@@ -47,46 +47,41 @@ namespace EngineName.Systems {
                     }
                     if (currentState.IsKeyDown(inputValue.CameraMovementUp))
                     {
-                        transform.Position += CAMERASPEED * 0.5f * new Vector3(0, 1, 0);
+                        transform.Position += CAMERASPEED * 1f * new Vector3(0, 1, 0);
                     }
                     if (currentState.IsKeyDown(inputValue.CameraMovementDown))
                     {
-                        transform.Position += CAMERASPEED * 0.5f * new Vector3(0, -1, 0);
+                        transform.Position += CAMERASPEED * 1f * new Vector3(0, -1, 0);
                     }
 
-                    Quaternion addRot;
-                    float yaw = 0, pitch = 0, roll = 0;
+
+					transform.YPR = Vector3.Zero;
                     float angle = t * 0.001f;
 
                     if (currentState.IsKeyDown(inputValue.CameraTiltUp))
                     {
-                        pitch = angle;
+						transform.YPR.Y += angle;
                     }
                     if (currentState.IsKeyDown(inputValue.CameraTiltDown))
                     {
-                        pitch = -angle;
+                        transform.YPR.Y += -angle;
                     }
                     if (currentState.IsKeyDown(inputValue.CameraTiltLeft))
                     {
-                        yaw = -angle;
+                        transform.YPR.X += angle;
                     }
                     if (currentState.IsKeyDown(inputValue.CameraTiltRight))
                     {
-                        yaw = angle;
+                        transform.YPR.X += -angle;
                     }
                     if (currentState.IsKeyDown(inputValue.CameraTiltRollLeft))
                     {
-                        roll = angle;
+                        transform.YPR.Z += angle;
                     }
                     if (currentState.IsKeyDown(inputValue.CameraTiltRollRight))
                     {
-                        roll = -angle;
+                        transform.YPR.Z += -angle;
                     }
-
-                    addRot = Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll);
-
-                    addRot.Normalize();
-                    transform.Orientation *= addRot;
                 }
             }
         }

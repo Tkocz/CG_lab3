@@ -15,12 +15,16 @@ namespace EngineName.Systems
         {
             foreach (CTransform transformComponent in Game1.Inst.Scene.GetComponents<CTransform>().Values)
             {
-                var scale = transformComponent.Scale;
-                var orientation = transformComponent.Orientation;
-                var objectWorld = transformComponent.ObjectWorld;
-                var position = transformComponent.Position;
+                Vector3 scale = transformComponent.Scale;
+				Quaternion orientation = transformComponent.Orientation;
+                Matrix objectWorld = transformComponent.ObjectWorld;
+                Vector3 position = transformComponent.Position;
+				Quaternion addRot = Quaternion.CreateFromYawPitchRoll(transformComponent.YPR.X, transformComponent.YPR.Y, transformComponent.YPR.Z);
+				addRot.Normalize();
+                orientation *= addRot;
                 transformComponent.ObjectWorld = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(orientation) * Matrix.CreateTranslation(position);
-            }
+				transformComponent.Orientation = orientation;
+			}
         }
     }
 }

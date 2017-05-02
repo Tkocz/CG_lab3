@@ -16,12 +16,14 @@ namespace EngineName.Systems
 		private GraphicsDevice mGraphicsDevice;
 		private int chunksplit = 20;
 		private BasicEffect basicEffect;
+		private Effect effect;
 
 		public override void Init()
 		{
 			mGraphicsDevice = Game1.Inst.GraphicsDevice;
 			basicEffect = new BasicEffect(mGraphicsDevice);
 			basicEffect.VertexColorEnabled = true;
+			effect = Game1.Inst.Content.Load<Effect>("Fx/Shader");
 			base.Init();
 		}
 
@@ -197,7 +199,7 @@ namespace EngineName.Systems
 				CreateIndicesChunk(heightmap, ref indices, 0);
 				CalculateHeightData(heightmap);
 				CreateVerticesChunks(heightmap, ref vertices, 0, 0);
-				basicEffect.Texture = heightmap.Image;
+				//basicEffect.Texture = heightmap.Image;
 				for (int j = 0; j < vertices.Values.Count; j++)
 				{
 					var vert = vertices[j];
