@@ -579,3 +579,12 @@
 /processorParam:TextureFormat=Color
 /build:Models/fbx/textures-obs-tower-knuq.png
 
+#begin Fx/BasicEffect.fx
+/importer:EffectImporter
+/processor:RemoteEffectProcessor
+/processorParam:RemoteAddress=pipeline.infinitespace-studios.co.uk
+/processorParam:RemotePort=443
+/processorParam:Protocol=https
+/processorParam:DebugMode=Auto
+/build:Fx/BasicEffect.fx
+

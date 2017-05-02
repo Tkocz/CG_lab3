@@ -15,7 +15,7 @@ using EngineName.Components;
 namespace EngineName.Systems {
     public class InputSystem : EcsSystem {
         private CInput inputValue = null;
-        private const float CAMERASPEED = 0.001f;
+        private const float CAMERASPEED = 0.005f;
 
         public override void Update(float t, float dt){
             KeyboardState currentState = Keyboard.GetState();
