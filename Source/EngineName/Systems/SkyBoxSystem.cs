@@ -23,7 +23,7 @@ namespace EngineName.Systems
         public override void Init()
         {
             world = Matrix.Identity;
-            skyModel = Game1.Inst.Content.Load<Model>("Models/skybox");
+            skyModel = Game1.Inst.Content.Load<Model>("resources/skybox");
             skyEffect = (BasicEffect)skyModel.Meshes[0].Effects[0];
             graphics = Game1.Inst.Graphics;
         }
@@ -62,7 +62,7 @@ namespace EngineName.Systems
             skyModel.Meshes[0].Draw();
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
-            Game1.Inst.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            //Game1.Inst.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
         }
     }

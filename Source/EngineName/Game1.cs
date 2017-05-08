@@ -139,12 +139,12 @@ public class Game1: Game {
         var profile = Graphics.GraphicsDevice.GraphicsProfile;
         var width   = Graphics.PreferredBackBufferWidth;
         var height  = Graphics.PreferredBackBufferHeight;
-        var vsync   = Graphics.SynchronizeWithVerticalRetrace;
+            //var vsync   = Graphics.SynchronizeWithVerticalRetrace;
 
-        Log.Get().Info( "Graphics device initialized."  )
-                 .Info($"  Profile:    {profile}"       )
-                 .Info($"  Resolution: {width}x{height}")
-                 .Info($"  VSync:      {vsync}"         );
+            Log.Get().Info("Graphics device initialized.")
+                     .Info($"  Profile:    {profile}")
+                     .Info($"  Resolution: {width}x{height}");
+                 //.Info($"  VSync:      {vsync}"         );
 
             Content.RootDirectory = "Content";
 

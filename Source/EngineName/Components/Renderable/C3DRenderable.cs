@@ -12,6 +12,7 @@ namespace EngineName.Components.Renderable
     {
         public Model model;
         public Texture2D texture;
+        public Texture2D normalMap;
 		public Effect effect;
     }
 }

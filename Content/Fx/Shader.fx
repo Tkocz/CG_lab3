@@ -1,94 +1,104 @@
-// XNA 4.0 Shader Programming #4 - Normal Mapping
 #if OPENGL
-	#define SV_POSITION POSITION
-	#define VS_SHADERMODEL vs_3_0
-	#define PS_SHADERMODEL ps_3_0
+#define SV_POSITION POSITION0
+#define VS_SHADERMODEL vs_3_0
+#define PS_SHADERMODEL ps_3_0
 #else
-	#define VS_SHADERMODEL vs_4_0_level_9_1
-	#define PS_SHADERMODEL ps_4_0_level_9_1
+#define VS_SHADERMODEL vs_4_0_level_9_1
+#define PS_SHADERMODEL ps_4_0_level_9_1
 #endif
 
-float4x4 World;
-float4x4 View;
-float4x4 Projection;
-
-float4 AmbientColor = float4(1, 1, 1, 1);
-float AmbientIntensity = 0.1;
-
-float4x4 WorldInverseTranspose;
-
-float3 DiffuseLightDirection = float3(1, 0, 0);
-float4 DiffuseColor = float4(1, 1, 1, 1);
-float DiffuseIntensity = 1.0;
-
-float Shininess = 200;
-float4 SpecularColor = float4(1, 1, 1, 1);
-float SpecularIntensity = 1;
-float3 ViewVector = float3(1, 0, 0);
+matrix World;
+matrix View;
+matrix Projection;
+float4 AmbientColor;
+float AmbientIntensity;
+float3 DiffuseLightDirection;
+float SpecularPower;
+float4 SpecularColor;
+float SpecularIntensity;
+float3 ViewVector;
 
 texture ModelTexture;
-sampler2D textureSampler = sampler_state {
-	Texture = (ModelTexture);
-	MagFilter = Linear;
-	MinFilter = Linear;
-	AddressU = Clamp;
-	AddressV = Clamp;
+sampler2D textureSampler = sampler_state
+{
+    Texture = (ModelTexture);
+    MagFilter = Linear;
+    MinFilter = Linear;
+    AddressU = Clamp;
+    AddressV = Clamp;
+};
+
+float BumpConstant;
+texture NormalMap;
+sampler2D bumpSampler = sampler_state
+{
+    Texture = (NormalMap);
+    MinFilter = Linear;
+    MagFilter = Linear;
+    AddressU = Wrap;
+    AddressV = Wrap;
 };
 
 struct VertexShaderInput
 {
-	float4 Position : POSITION0;
-	float4 Normal : NORMAL0;
-	float2 TextureCoordinate : TEXCOORD0;
+    float4 Position : SV_POSITION;
+    float4 Normal : NORMAL0;
+    float3 Tangent : TANGENT0;
+    float3 Binormal : BINORMAL0;
+    float2 TextureCoordinate : TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
-	float4 Position : POSITION0;
-	float4 Color : COLOR0;
-	float3 Normal : TEXCOORD0;
-	float2 TextureCoordinate : TEXCOORD1;
+    float4 Position : SV_POSITION;
+    float2 TextureCoordinate : TEXCOORD0;
+    float3 Normal : TEXCOORD1;
+    float3 Tangent : TEXCOORD2;
+    float3 Binormal : TEXCOORD3;
 };
 
-VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
+VertexShaderOutput MainVS(in VertexShaderInput input)
 {
-	VertexShaderOutput output;
+    VertexShaderOutput output = (VertexShaderOutput) 0;
 
-	float4 worldPosition = mul(input.Position, World);
-	float4 viewPosition = mul(worldPosition, View);
-	output.Position = mul(viewPosition, Projection);
+    float4 worldPosition = mul(input.Position, World);
+    float4 viewPosition = mul(worldPosition, View);
+    output.Position = mul(viewPosition, Projection);
+    output.Normal = normalize(mul(input.Normal, World));
+    output.Tangent = normalize(mul(input.Tangent, World));
+    output.Binormal = normalize(mul(input.Binormal, World));
 
-	float4 normal = normalize(mul(input.Normal, WorldInverseTranspose));
-	float lightIntensity = dot(normal, DiffuseLightDirection);
-	output.Color = saturate(DiffuseColor * DiffuseIntensity * lightIntensity);
-
-	output.Normal = normal;
-	output.TextureCoordinate = input.TextureCoordinate;
-
-	return output;
+    output.TextureCoordinate = input.TextureCoordinate;
+    return output;
 }
 
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
+float4 MainPS(VertexShaderOutput input) : COLOR0
 {
-	float3 light = normalize(DiffuseLightDirection);
-	float3 normal = normalize(input.Normal);
-	float3 r = normalize(2 * dot(light, normal) * normal - light);
-	float3 v = normalize(mul(normalize(ViewVector), World));
+    float3 bump = BumpConstant * (tex2D(bumpSampler, input.TextureCoordinate) - (0.5f, 0.5f, 0.5f));
+    float3 bumpNormal = input.Normal + (bump.x * input.Tangent + bump.y * input.Binormal);
+    bumpNormal = normalize(bumpNormal);
 
-	float dotProduct = dot(r, v);
-	float4 specular = SpecularIntensity * SpecularColor * max(pow(dotProduct, Shininess), 0) * length(input.Color);
+    float diffuseIntensity = dot(normalize(DiffuseLightDirection), bumpNormal);
+    if (diffuseIntensity < 0)
+        diffuseIntensity = 0;
+    float3 light = normalize(DiffuseLightDirection);
+    float3 r = normalize(2 * dot(light, bumpNormal) * bumpNormal - light);
+    float3 v = normalize(mul(normalize(ViewVector), World));
+    //float3 h = normalize(light + v);
+    float dotProduct = dot(r, v);
+    float4 specular = SpecularIntensity * SpecularColor * max(pow(dotProduct, SpecularPower), 0) * diffuseIntensity;
 
-	float4 textureColor = tex2D(textureSampler, input.TextureCoordinate);
-	textureColor.a = 1;
-	return saturate(textureColor * (input.Color) + AmbientColor * AmbientIntensity + specular);
+    float4 textureColor = tex2D(textureSampler, input.TextureCoordinate);
+    textureColor.a = 1;
+
+    return saturate(textureColor * (diffuseIntensity) + AmbientColor * AmbientIntensity + specular);
 }
 
-technique Specular
+technique BumpMapped
 {
-	pass Pass1
-	{
-		AlphaBlendEnable = FALSE;
-		VertexShader = compile VS_SHADERMODEL VertexShaderFunction();
-		PixelShader = compile PS_SHADERMODEL PixelShaderFunction();
-	}
-}
+    pass P0
+    {
+        VertexShader = compile VS_SHADERMODEL MainVS();
+        PixelShader = compile PS_SHADERMODEL MainPS();
+    }
+};

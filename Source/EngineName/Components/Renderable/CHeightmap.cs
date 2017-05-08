@@ -18,6 +18,7 @@ namespace EngineName.Components.Renderable
         public CHeightmap()
         {
             texture = Game1.Inst.Content.Load<Texture2D>("Textures/mudcrack");
+            effect = null;
         }
     }
 }
