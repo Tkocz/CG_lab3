@@ -61,12 +61,12 @@ namespace EngineName.Systems
                                 foreach (ModelMeshPart part in modelMesh.MeshParts)
                                 {
                                     part.Effect = model.effect;
-                                    model.effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld * world);
+                                    model.effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld);
                                     model.effect.Parameters["View"].SetValue(camera.View);
                                     model.effect.Parameters["Projection"].SetValue(camera.Projection);
                                     model.effect.Parameters["AmbientColor"].SetValue(Color.White.ToVector3());
                                     model.effect.Parameters["AmbientIntensity"].SetValue(0.1f);
-                                    model.effect.Parameters["DiffuseLightDirection"].SetValue(new Vector3(0, 1, 0));
+                                    model.effect.Parameters["LightDirection"].SetValue(new Vector3(-0.5f, 1f, -3.5f));
                                     model.effect.Parameters["SpecularPower"].SetValue(400f);
                                     model.effect.Parameters["SpecularColor"].SetValue(Color.Gray.ToVector3());
                                     model.effect.Parameters["SpecularIntensity"].SetValue(3.0f);

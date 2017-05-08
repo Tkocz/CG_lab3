@@ -70,7 +70,7 @@ namespace GameName.Scenes
             });
             AddComponent(chopper, new CTransform()
                 {
-                    Position = new Vector3(200, -100, 200) * 0.01f,
+                    Position = new Vector3(0, -750, 0) * 0.01f,
                     Orientation = Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY(MathHelper.PiOver4 * 2)),
                     Scale = new Vector3(0.1f)
                 });
