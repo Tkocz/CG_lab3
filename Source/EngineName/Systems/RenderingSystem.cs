@@ -61,12 +61,12 @@ namespace EngineName.Systems
                                 foreach (ModelMeshPart part in modelMesh.MeshParts)
                                 {
                                     part.Effect = model.effect;
-                                    model.effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld);
+                                    model.effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld * world);
                                     model.effect.Parameters["View"].SetValue(camera.View);
                                     model.effect.Parameters["Projection"].SetValue(camera.Projection);
                                     model.effect.Parameters["AmbientColor"].SetValue(Color.White.ToVector3());
                                     model.effect.Parameters["AmbientIntensity"].SetValue(0.1f);
-                                    model.effect.Parameters["LightDirection"].SetValue(new Vector3(-0.5f, 1f, -3.5f));
+                                    model.effect.Parameters["LightDirection"].SetValue(new Vector3(0, 1f, 0));
                                     model.effect.Parameters["SpecularPower"].SetValue(400f);
                                     model.effect.Parameters["SpecularColor"].SetValue(Color.Gray.ToVector3());
                                     model.effect.Parameters["SpecularIntensity"].SetValue(3.0f);
@@ -74,6 +74,7 @@ namespace EngineName.Systems
                                     model.effect.Parameters["ModelTexture"].SetValue(model.texture);
                                     model.effect.Parameters["BumpConstant"].SetValue(1f);
                                     model.effect.Parameters["NormalMap"].SetValue(model.normalMap);
+									model.effect.Parameters["EnvTexture"].SetValue(model.environmentMap);
                                 }
                                 modelMesh.Draw();
 
@@ -90,7 +91,7 @@ namespace EngineName.Systems
                                     effect.LightingEnabled = true;
 
                                     effect.DirectionalLight0.DiffuseColor = new Vector3(1f, 1f, 1f);
-                                    effect.DirectionalLight0.Direction = new Vector3(-0.5f, 1f, -3.5f);
+                                    effect.DirectionalLight0.Direction = new Vector3(0, 1f, 0);
                                     effect.DirectionalLight0.SpecularColor = new Vector3(-0.1f, -0.1f, -0.1f);
                                     
                                     foreach (EffectPass p in effect.CurrentTechnique.Passes)

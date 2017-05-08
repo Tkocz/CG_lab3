@@ -12,7 +12,10 @@ namespace EngineName.Systems
 {
     public class CameraSystem : EcsSystem {
         private GraphicsDevice mGraphicsDevice;
-
+		float angle = 0;
+		Vector3 viewVector;
+		Vector3 cameraLocation;
+float distance = 10;
         public override void Init() {
             mGraphicsDevice = Game1.Inst.GraphicsDevice;
             base.Init();
