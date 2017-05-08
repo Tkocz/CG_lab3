@@ -67,7 +67,7 @@ namespace GameName.Scenes
 					effect = Game1.Inst.Content.Load<Effect>("Fx/Shader"),
 					texture = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterTextureMap"),
 					normalMap = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterNormalMap"),
-					environmentMap = Game1.Inst.Content.Load<TextureCube>("Textures/cubedds")
+					environmentMap = Game1.Inst.Content.Load<TextureCube>("Skybox/SkyBox")
             });
             AddComponent(chopper, new CTransform()
                 {

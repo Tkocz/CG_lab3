@@ -98,7 +98,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR0
 	float4 specular = SpecularIntensity * SpecularColor * max(pow(dot(n, h), SpecularPower), 0.0f) * diffuseIntensity;
 
 	float Diff = saturate(dot(l, n));
-	float3 Reflect = normalize(2 * Diff * n – l);
+	float3 Reflect = normalize(2 * Diff * (n - l));
 	float3 ReflectColor = texCUBE(reflectionCubeMapSampler, Reflect);
 
 	float4 textureColor = tex2D(textureSampler, input.TextureCoord);
