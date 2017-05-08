@@ -20,7 +20,7 @@ namespace GameName.Scenes
 
             var mapSystem = new MapSystem();
             AddSystems(
-                //new SkyBoxSystem(),
+                new SkyBoxSystem(),
                 new RenderingSystem(Matrix.Identity),
                 new TransformSystem(),
                 new CameraSystem(),
@@ -51,7 +51,7 @@ namespace GameName.Scenes
             //hangar
             int hangar = AddEntity();
 			AddComponent<C3DRenderable>(hangar, new CImportedModel()
-                {   model = Game1.Inst.Content.Load<Model>("resources/House1Smooth"),
+                {   model = Game1.Inst.Content.Load<Model>("resources/House1Smooth")
             });
             AddComponent(hangar, new CTransform()
                 {   Position = new Vector3(0, -855, 0)* 0.01f,
@@ -61,13 +61,12 @@ namespace GameName.Scenes
             
             //chopper
             int chopper = AddEntity();
-			AddComponent<C3DRenderable>(chopper, new CImportedModel()
-			{
-					model = Game1.Inst.Content.Load<Model>("resources/Chopper"),
-					effect = Game1.Inst.Content.Load<Effect>("Fx/Shader"),
-					texture = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterTextureMap"),
-					normalMap = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterNormalMap"),
-					environmentMap = Game1.Inst.Content.Load<TextureCube>("Skybox/SkyBox")
+            AddComponent<C3DRenderable>(chopper, new CImportedModel()
+                {
+                    model = Game1.Inst.Content.Load<Model>("resources/Chopper"),
+                    effect = Game1.Inst.Content.Load<Effect>("Fx/Reflection"),
+                    texture = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterTextureMap"),
+                    normalMap = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterNormalMap")
             });
             AddComponent(chopper, new CTransform()
                 {

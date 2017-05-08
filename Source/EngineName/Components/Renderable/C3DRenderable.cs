@@ -14,6 +14,5 @@ namespace EngineName.Components.Renderable
         public Texture2D texture;
         public Texture2D normalMap;
 		public Effect effect;
-		public TextureCube environmentMap;
     }
 }

@@ -16,6 +16,7 @@ namespace EngineName.Systems
         private GraphicsDevice mGraphicsDevice;
         private Matrix world;
         private Vector3 viewVector;
+        private TextureCube skyBoxTexture;
 
         public RenderingSystem(Matrix world)
         {
@@ -24,6 +25,7 @@ namespace EngineName.Systems
         public override void Init()
         {
             mGraphicsDevice = Game1.Inst.GraphicsDevice;
+            skyBoxTexture = Game1.Inst.Content.Load<TextureCube>("Skyboxes/Sunset");
             base.Init();
         }
         public override void Update(float t, float dt)
@@ -61,20 +63,26 @@ namespace EngineName.Systems
                                 foreach (ModelMeshPart part in modelMesh.MeshParts)
                                 {
                                     part.Effect = model.effect;
-                                    model.effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld * world);
+                                    model.effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld);
                                     model.effect.Parameters["View"].SetValue(camera.View);
                                     model.effect.Parameters["Projection"].SetValue(camera.Projection);
-                                    model.effect.Parameters["AmbientColor"].SetValue(Color.White.ToVector3());
+                                    //BM-specific
+                                    /*model.effect.Parameters["AmbientColor"].SetValue(Color.White.ToVector3());
                                     model.effect.Parameters["AmbientIntensity"].SetValue(0.1f);
-                                    model.effect.Parameters["LightDirection"].SetValue(new Vector3(0, 1f, 0));
+                                    model.effect.Parameters["LightDirection"].SetValue(new Vector3(-0.5f, 1f, -3.5f));
                                     model.effect.Parameters["SpecularPower"].SetValue(400f);
                                     model.effect.Parameters["SpecularColor"].SetValue(Color.Gray.ToVector3());
                                     model.effect.Parameters["SpecularIntensity"].SetValue(3.0f);
                                     model.effect.Parameters["ViewVector"].SetValue(viewVector);
                                     model.effect.Parameters["ModelTexture"].SetValue(model.texture);
-                                    model.effect.Parameters["BumpConstant"].SetValue(1f);
-                                    model.effect.Parameters["NormalMap"].SetValue(model.normalMap);
-									model.effect.Parameters["EnvTexture"].SetValue(model.environmentMap);
+                                    model.effect.Parameters["BumpConstant"].SetValue(-5f);
+                                    model.effect.Parameters["NormalMap"].SetValue(model.normalMap);*/
+
+                                    //Reflection-specific
+                                    model.effect.Parameters["SkyboxTexture"].SetValue(skyBoxTexture);
+                                    model.effect.Parameters["CameraPosition"].SetValue(camera.CameraPosition);
+                                    model.effect.Parameters["WorldInverseTranspose"].SetValue(
+                                                            Matrix.Transpose(Matrix.Invert(modelMesh.ParentBone.Transform * objectWorld)));
                                 }
                                 modelMesh.Draw();
 
@@ -91,7 +99,7 @@ namespace EngineName.Systems
                                     effect.LightingEnabled = true;
 
                                     effect.DirectionalLight0.DiffuseColor = new Vector3(1f, 1f, 1f);
-                                    effect.DirectionalLight0.Direction = new Vector3(0, 1f, 0);
+                                    effect.DirectionalLight0.Direction = new Vector3(-0.5f, 1f, -3.5f);
                                     effect.DirectionalLight0.SpecularColor = new Vector3(-0.1f, -0.1f, -0.1f);
                                     
                                     foreach (EffectPass p in effect.CurrentTechnique.Passes)
