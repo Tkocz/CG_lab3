@@ -139,7 +139,7 @@
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
 /processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
+/processorParam:GenerateTangentFrames=True
 /processorParam:PremultiplyTextureAlpha=False
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
@@ -365,7 +365,10 @@
 
 #begin Skyboxes/Skybox.fx
 /importer:EffectImporter
-/processor:EffectProcessor
+/processor:RemoteEffectProcessor
+/processorParam:RemoteAddress=pipeline.infinitespace-studios.co.uk
+/processorParam:RemotePort=443
+/processorParam:Protocol=https
 /processorParam:DebugMode=Auto
 /build:Skyboxes/Skybox.fx
 
@@ -380,10 +383,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Skyboxes/Sunset.dds
-
-#begin Fx/Reflection.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Fx/Reflection.fx
 

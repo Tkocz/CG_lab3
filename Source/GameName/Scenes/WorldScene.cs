@@ -64,9 +64,11 @@ namespace GameName.Scenes
             AddComponent<C3DRenderable>(chopper, new CImportedModel()
                 {
                     model = Game1.Inst.Content.Load<Model>("resources/Chopper"),
-                    effect = Game1.Inst.Content.Load<Effect>("Fx/Reflection"),
+                    effect = Game1.Inst.Content.Load<Effect>("Fx/Shader"),
                     texture = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterTextureMap"),
-                    normalMap = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterNormalMap")
+                    normalMap = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterNormalMap"),
+					environmentMap = new TextureCube(Game1.Inst.GraphicsDevice, 256, true, SurfaceFormat.Color)
+					
             });
             AddComponent(chopper, new CTransform()
                 {

@@ -96,11 +96,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR0
     float3 v = normalize(mul(normalize(ViewVector), World));
     float3 h = normalize(l + v);
     float4 specular = SpecularIntensity * SpecularColor * max(pow(dot(n, h), SpecularPower), 0.0f) * diffuseIntensity;
-    
-    float4 textureColor = tex2D(textureSampler, input.TextureCoord);
-    textureColor.a = 1.0f;
 
-	float Diff = saturate(dot(l, n));
 	float3 Reflect = normalize(reflect(v, n));
 	float4 ReflectColor = texCUBE(reflectionCubeMapSampler, Reflect);
 
@@ -108,7 +104,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR0
 	textureColor.a = 1.0f;
 	textureColor = ReflectColor * textureColor * diffuseIntensity;
 
-	return saturate(textureColor +  AmbientColor * AmbientIntensity + specular);
+	return saturate(textureColor * diffuseIntensity +  AmbientColor * AmbientIntensity + specular);
 }
 
 technique BumpMapped
