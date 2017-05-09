@@ -63,26 +63,20 @@ namespace EngineName.Systems
                                 foreach (ModelMeshPart part in modelMesh.MeshParts)
                                 {
                                     part.Effect = model.effect;
-                                    model.effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld);
-                                    model.effect.Parameters["View"].SetValue(camera.View);
-                                    model.effect.Parameters["Projection"].SetValue(camera.Projection);
-                                    //BM-specific
-                                    /*model.effect.Parameters["AmbientColor"].SetValue(Color.White.ToVector3());
-                                    model.effect.Parameters["AmbientIntensity"].SetValue(0.1f);
-                                    model.effect.Parameters["LightDirection"].SetValue(new Vector3(-0.5f, 1f, -3.5f));
-                                    model.effect.Parameters["SpecularPower"].SetValue(400f);
-                                    model.effect.Parameters["SpecularColor"].SetValue(Color.Gray.ToVector3());
-                                    model.effect.Parameters["SpecularIntensity"].SetValue(3.0f);
-                                    model.effect.Parameters["ViewVector"].SetValue(viewVector);
-                                    model.effect.Parameters["ModelTexture"].SetValue(model.texture);
-                                    model.effect.Parameters["BumpConstant"].SetValue(-5f);
-                                    model.effect.Parameters["NormalMap"].SetValue(model.normalMap);*/
-
-                                    //Reflection-specific
-                                    model.effect.Parameters["SkyboxTexture"].SetValue(skyBoxTexture);
-                                    model.effect.Parameters["CameraPosition"].SetValue(camera.CameraPosition);
-                                    model.effect.Parameters["WorldInverseTranspose"].SetValue(
-                                                            Matrix.Transpose(Matrix.Invert(modelMesh.ParentBone.Transform * objectWorld)));
+                                    part.Effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld * world);
+                                    part.Effect.Parameters["View"].SetValue(camera.View);
+                                    part.Effect.Parameters["Projection"].SetValue(camera.Projection);
+                                    part.Effect.Parameters["AmbientColor"].SetValue(Color.White.ToVector3());
+                                    part.Effect.Parameters["AmbientIntensity"].SetValue(0.1f);
+                                    part.Effect.Parameters["LightDirection"].SetValue(new Vector3(0, 1f, 0));
+                                    part.Effect.Parameters["SpecularPower"].SetValue(400f);
+                                    part.Effect.Parameters["SpecularColor"].SetValue(Color.Gray.ToVector3());
+                                    part.Effect.Parameters["SpecularIntensity"].SetValue(3.0f);
+                                    part.Effect.Parameters["ViewVector"].SetValue(viewVector);
+                                   	part.Effect.Parameters["ModelTexture"].SetValue(model.texture);
+                                    part.Effect.Parameters["BumpConstant"].SetValue(1f);
+                                   	part.Effect.Parameters["NormalMap"].SetValue(model.normalMap);
+									part.Effect.Parameters["EnvTexture"].SetValue(model.environmentMap);
                                 }
                                 modelMesh.Draw();
 

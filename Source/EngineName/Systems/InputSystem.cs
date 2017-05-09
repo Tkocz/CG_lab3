@@ -15,7 +15,7 @@ using EngineName.Components;
 namespace EngineName.Systems {
     public class InputSystem : EcsSystem {
         private CInput inputValue = null;
-        private const float CAMERASPEED = 0.005f;
+        private const float CAMERASPEED = 0.003f;
 
         public override void Update(float t, float dt){
             KeyboardState currentState = Keyboard.GetState();
@@ -56,7 +56,7 @@ namespace EngineName.Systems {
 
 
 					transform.YPR = Vector3.Zero;
-                    float angle = t * 0.001f;
+                    float angle = t * 0.003f;
 
                     if (currentState.IsKeyDown(inputValue.CameraTiltUp))
                     {

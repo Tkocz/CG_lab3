@@ -37,6 +37,16 @@ sampler2D bumpSampler = sampler_state {
     AddressV = Wrap;
 };
 
+texture EnvTexture; 
+samplerCUBE reflectionCubeMapSampler = sampler_state {
+	texture = (EnvTexture); 
+	magfilter = LINEAR; 
+	minfilter = LINEAR; 
+	mipfilter = LINEAR; 
+	AddressU = Clamp;
+	AddressV = Clamp; 
+};
+
 struct VertexShaderInput
 {
 	float4 Position : SV_POSITION;
@@ -49,8 +59,11 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 Position : SV_POSITION;
-    float2 TextureCoord : TEXCOORD0;
-    float3x3 Tanget : TEXCOORD4;
+	float2 TextureCoord : TEXCOORD0;
+	/*float3 Normal : TEXCOORD1;
+	float3 Tangent : TEXCOORD2;
+	float3 Binormal : TEXCOORD3;*/
+	float3x3 Tanget : TEXCOORD4;
 };
 
 VertexShaderOutput MainVS(in VertexShaderInput input)
@@ -72,11 +85,11 @@ VertexShaderOutput MainVS(in VertexShaderInput input)
 
 float4 MainPS(VertexShaderOutput input) : COLOR0
 {
-    //float3 bump = BumpConstant * (tex2D(bumpSampler, input.TextureCoord) - (0.5f, 0.5f, 0.5f));
-    //float3 n = input.Normal + (bump.x * input.Tangent + bump.y * input.Binormal);
-    //n = normalize(n);
-    float3 n = BumpConstant * (tex2D(bumpSampler, input.TextureCoord) - (0.5f, 0.5f, 0.5f));
-    n = normalize(mul(n, input.Tanget));
+	/*float3 bump = BumpConstant * (tex2D(bumpSampler, input.TextureCoord) - (0.5f, 0.5f, 0.5f));
+	float3 n = input.Normal + (bump.x * input.Tangent + bump.y * input.Binormal);
+	n = normalize(n);*/
+	float3 n = BumpConstant * (tex2D(bumpSampler, input.TextureCoord) - (0.5f, 0.5f, 0.5f));
+	n = normalize(mul(n, input.Tanget));
 
     float diffuseIntensity = max(dot(normalize(LightDirection), n), 0.0f);
     float3 l = normalize(mul(input.Tanget, LightDirection));
@@ -87,7 +100,15 @@ float4 MainPS(VertexShaderOutput input) : COLOR0
     float4 textureColor = tex2D(textureSampler, input.TextureCoord);
     textureColor.a = 1.0f;
 
-    return saturate(textureColor * diffuseIntensity +  AmbientColor * AmbientIntensity + specular);
+	float Diff = saturate(dot(l, n));
+	float3 Reflect = normalize(reflect(v, n));
+	float4 ReflectColor = texCUBE(reflectionCubeMapSampler, Reflect);
+
+	float4 textureColor = tex2D(textureSampler, input.TextureCoord);
+	textureColor.a = 1.0f;
+	textureColor = ReflectColor * textureColor * diffuseIntensity;
+
+	return saturate(textureColor +  AmbientColor * AmbientIntensity + specular);
 }
 
 technique BumpMapped
