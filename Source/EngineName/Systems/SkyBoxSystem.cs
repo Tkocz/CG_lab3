@@ -62,5 +62,44 @@ namespace EngineName.Systems
             }
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
         }
+        public void DrawOnRequest(Matrix view)
+        {
+            world = Matrix.Identity;
+            skyBox = Game1.Inst.Content.Load<Model>("Skyboxes/cube");
+            skyBoxTexture = Game1.Inst.Content.Load<TextureCube>("Skyboxes/Sunset");
+            skyBoxEffect = Game1.Inst.Content.Load<Effect>("Skyboxes/Skybox");
+            graphics = Game1.Inst.Graphics;
+
+            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            foreach (CCamera camera in Game1.Inst.Scene.GetComponents<CCamera>().Values)
+            {
+                // Go through each pass in the effect, but we know there is only one...
+                foreach (EffectPass pass in skyBoxEffect.CurrentTechnique.Passes)
+                {
+                    pass.Apply();
+
+                    // Draw all of the components of the mesh, but we know the cube really
+                    // only has one mesh
+                    foreach (ModelMesh mesh in skyBox.Meshes)
+                    {
+                        // Assign the appropriate values to each of the parameters
+                        foreach (ModelMeshPart part in mesh.MeshParts)
+                        {
+                            part.Effect = skyBoxEffect;
+                            part.Effect.Parameters["World"].SetValue(
+                                Matrix.CreateScale(size) * Matrix.CreateTranslation(camera.CameraPosition));
+                            part.Effect.Parameters["View"].SetValue(view);
+                            part.Effect.Parameters["Projection"].SetValue(camera.Projection);
+                            part.Effect.Parameters["SkyBoxTexture"].SetValue(skyBoxTexture);
+                            part.Effect.Parameters["CameraPosition"].SetValue(camera.CameraPosition);
+                        }
+
+                        // Draw the mesh with the skybox effect
+                        mesh.Draw();
+                    }
+                }
+            }
+            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+        }
     }
 }
