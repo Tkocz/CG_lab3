@@ -20,12 +20,12 @@ namespace GameName.Scenes
 
             var mapSystem = new MapSystem();
             AddSystems(
-                new SkyBoxSystem(),
                 new RenderingSystem(Matrix.Identity),
                 new TransformSystem(),
                 new CameraSystem(),
                 new PhysicsSystem(),
                 new InputSystem(),
+				new SkyBoxSystem(),
                 mapSystem
 
             );
@@ -63,18 +63,18 @@ namespace GameName.Scenes
             int chopper = AddEntity();
             AddComponent<C3DRenderable>(chopper, new CImportedModel()
                 {
-                    model = Game1.Inst.Content.Load<Model>("resources/Chopper"),
+                    model = Game1.Inst.Content.Load<Model>("Textures/sphere_mapped"),
                     effect = Game1.Inst.Content.Load<Effect>("Fx/Shader"),
-                    texture = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterTextureMap"),
-                    normalMap = Game1.Inst.Content.Load<Texture2D>("resources/HelicopterNormalMap"),
+                    texture = Game1.Inst.Content.Load<Texture2D>("Textures/setts"),
+                    normalMap = Game1.Inst.Content.Load<Texture2D>("Textures/water-normal-map"),
 					environmentMap = new TextureCube(Game1.Inst.GraphicsDevice, 256, true, SurfaceFormat.Color)
 					
             });
             AddComponent(chopper, new CTransform()
                 {
-                    Position = new Vector3(0, -750, 0) * 0.01f,
+                    Position = new Vector3(0, -700, 0) * 0.01f,
                     Orientation = Quaternion.CreateFromRotationMatrix(Matrix.CreateRotationY(MathHelper.PiOver4 * 2)),
-                    Scale = new Vector3(0.1f)
+                    Scale = new Vector3(0.5f)
                 });
 
             // manually start loading all heightmap components, should be moved/automated

@@ -73,9 +73,6 @@ VertexShaderOutput MainVS(in VertexShaderInput input)
 	float4 worldPosition = mul(input.Position, World);
 	float4 viewPosition = mul(worldPosition, View);
 	output.Position = mul(viewPosition, Projection);
-	//output.Normal = normalize(mul(input.Normal, World));
-    //output.Tangent = normalize(mul(input.Tangent, World));
-    //output.Binormal = normalize(mul(input.Binormal, World));
     output.Tanget[0] = mul(input.Tangent, World);
     output.Tanget[1] = mul(input.Binormal, World);
     output.Tanget[2] = mul(input.Normal, World);
@@ -85,15 +82,12 @@ VertexShaderOutput MainVS(in VertexShaderInput input)
 
 float4 MainPS(VertexShaderOutput input) : COLOR0
 {
-	/*float3 bump = BumpConstant * (tex2D(bumpSampler, input.TextureCoord) - (0.5f, 0.5f, 0.5f));
-	float3 n = input.Normal + (bump.x * input.Tangent + bump.y * input.Binormal);
-	n = normalize(n);*/
 	float3 n = BumpConstant * (tex2D(bumpSampler, input.TextureCoord) - (0.5f, 0.5f, 0.5f));
 	n = normalize(mul(n, input.Tanget));
 
     float diffuseIntensity = max(dot(normalize(LightDirection), n), 0.0f);
     float3 l = normalize(mul(input.Tanget, LightDirection));
-    float3 v = normalize(mul(normalize(ViewVector), World));
+    float3 v = -normalize(mul(normalize(ViewVector), World));
     float3 h = normalize(l + v);
     float4 specular = SpecularIntensity * SpecularColor * max(pow(dot(n, h), SpecularPower), 0.0f) * diffuseIntensity;
 

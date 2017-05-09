@@ -18,6 +18,7 @@ namespace EngineName.Systems
 		private Matrix world;
 		private Vector3 viewVector;
 		private TextureCube skyBoxTexture;
+		private SkyBoxSystem skysystem;
 
 		public RenderingSystem(Matrix world)
 		{
@@ -27,6 +28,7 @@ namespace EngineName.Systems
 		{
 			mGraphicsDevice = Game1.Inst.GraphicsDevice;
 			skyBoxTexture = Game1.Inst.Content.Load<TextureCube>("Skyboxes/Sunset");
+			skysystem = new SkyBoxSystem();
 			base.Init();
 		}
 		public override void Update(float t, float dt)
@@ -42,10 +44,10 @@ namespace EngineName.Systems
 		{
 			base.Draw(t, dt);
 			createEnvMapping();
-			drawNormal();
+			drawNormal(Matrix.Identity);
 		}
 
-		public void drawNormal()
+		public void drawNormal(Matrix view)
 		{
 			Game1.Inst.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 			int counter = 0;
@@ -65,11 +67,13 @@ namespace EngineName.Systems
 						{
 							if (model.effect != null)
 							{
+								if (view.Equals(Matrix.Identity))
+									view = camera.View;
 								foreach (ModelMeshPart part in modelMesh.MeshParts)
 								{
 									part.Effect = model.effect;
 									part.Effect.Parameters["World"].SetValue(modelMesh.ParentBone.Transform * objectWorld * world);
-									part.Effect.Parameters["View"].SetValue(camera.View);
+									part.Effect.Parameters["View"].SetValue(view);
 									part.Effect.Parameters["Projection"].SetValue(camera.Projection);
 									part.Effect.Parameters["AmbientColor"].SetValue(Color.White.ToVector3());
 									part.Effect.Parameters["AmbientIntensity"].SetValue(0.1f);
@@ -117,15 +121,17 @@ namespace EngineName.Systems
 		private void createEnvMapping()
 		{
 			C3DRenderable model = null;
+			CTransform transform = null;
 			foreach (var component in Game1.Inst.Scene.GetComponents<C3DRenderable>())
 			{
 				var key = component.Key;
 				model = (C3DRenderable)component.Value;
 				if (model.effect == null) continue;
+				transform = (CTransform)Game1.Inst.Scene.GetComponentFromEntity<CTransform>(key);
 			}
 			RenderTarget2D renderTarget = new RenderTarget2D(Game1.Inst.GraphicsDevice, 256, 256);
-			//Game1.Inst.GraphicsDevice.Clear(Color.Black);
-			Matrix view;
+			Game1.Inst.GraphicsDevice.Clear(Color.Black);
+			Matrix view = Matrix.Identity;
 			for (int i = 0; i < 6; i++)
 			{
 				// render the scene to all cubemap faces
@@ -135,49 +141,51 @@ namespace EngineName.Systems
 				{
 					case CubeMapFace.NegativeX:
 						{
-							view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Left, Vector3.Up);
+							view = Matrix.CreateLookAt(transform.Position, Vector3.Left, Vector3.Up);
 							break;
 						}
 					case CubeMapFace.NegativeY:
 						{
-							view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Down, Vector3.Forward);
+							view = Matrix.CreateLookAt(transform.Position, Vector3.Down, Vector3.Forward);
 							break;
 						}
 					case CubeMapFace.NegativeZ:
 						{
-							view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Backward, Vector3.Up);
+							view = Matrix.CreateLookAt(transform.Position, Vector3.Backward, Vector3.Up);
 							break;
 						}
 					case CubeMapFace.PositiveX:
 						{
-							view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Right, Vector3.Up);
+							view = Matrix.CreateLookAt(transform.Position, Vector3.Right, Vector3.Up);
 							break;
 						}
 					case CubeMapFace.PositiveY:
 						{
-							view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Up, Vector3.Backward);
+							view = Matrix.CreateLookAt(transform.Position, Vector3.Up, Vector3.Backward);
 							break;
 						}
 					case CubeMapFace.PositiveZ:
 						{
-							view = Matrix.CreateLookAt(Vector3.Zero, Vector3.Forward, Vector3.Up);
+							view = Matrix.CreateLookAt(transform.Position, Vector3.Forward, Vector3.Up);
 							break;
 						}
 				}
 
 				// Set the cubemap render target, using the selected face
 				Game1.Inst.GraphicsDevice.SetRenderTarget(renderTarget);
-				//Game1.Inst.GraphicsDevice.Clear(Color.White);
-				drawNormal();
+				Game1.Inst.GraphicsDevice.Clear(Color.White);
+				drawNormal(view);
+				//skysystem.DrawOnRequest(view);
+
 				Color[] colordata = new Color[256 * 256];
 				renderTarget.GetData(colordata);
-				model.environmentMap.SetData(cubeMapFace, colordata);
+				model.environmentMap.SetData((CubeMapFace)i, colordata);
 				//DEBUG
 				Stream stream = File.Create("test" + i + ".jpg");
 				renderTarget.SaveAsJpeg(stream, 256, 256);
 				stream.Dispose();
 				// restore our matrix after changing during the cube map rendering
-				view = Matrix.CreateLookAt(new Vector3(0, 0, 80), Vector3.Zero, Vector3.Up);
+				//view = Matrix.CreateLookAt(new Vector3(0, 0, 0), Vector3.Zero, Vector3.Up);
 
 			}
 			Game1.Inst.GraphicsDevice.SetRenderTarget(null);
